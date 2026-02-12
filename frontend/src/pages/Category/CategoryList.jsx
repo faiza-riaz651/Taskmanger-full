@@ -17,7 +17,7 @@ const CategoryList = () => {
   const path = useSelector((state) => state.prevPathInfo);
 
   return (
-    <div className="ml-64 flex flex-col border-2 border-gray-500 rounded-lg w-[63rem] mr-2 h-[calc(100vh-6rem)]">
+    <div className="ml-64 flex flex-col border-2 border-gray-500 rounded-lg w-[63rem] mr-2 ">
       <div className="flex justify-between mx-2 my-2 font-semibold">
         <h1 className="text-lg underline decoration-2 decoration-red-500 underline-offset-3 ">
           Category List
@@ -36,7 +36,7 @@ const CategoryList = () => {
               {allCategorys.map((cat) => (
                 <li key={cat._id}>
                   <div className="flex items-center h-18 ">
-                    <Link className="text-black text-xl font-bold  hover:underline hover:underline-2">
+                    <Link className="text-black text-xl w-84 font-bold  hover:underline  break-words hover:underline-2 ">
                       {cat.name}
                     </Link>
                     <div className="flex ml-32 gap-x-2">
@@ -52,9 +52,13 @@ const CategoryList = () => {
               ))}
             </ul>
           </>
-        ) : null}
+        ) : (
+          <div>No More Categories...</div>
+        )}
       </div>
-      <div className="flex border-2 border-[#FF5C5C] rounded-md w-[20%] mr-3 justify-between items-center text-[#FF5C5C] h-12 self-end">
+      <div
+        className={`flex border-2 border-[#FF5C5C] rounded-md  w-[20%] mr-3 justify-between items-center text-[#FF5C5C] h-12 self-end`}
+      >
         {pageNo !== 0 && (
           <span className="   px-4">
             <FaBackward

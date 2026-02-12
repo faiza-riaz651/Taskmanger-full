@@ -2,7 +2,7 @@ import Task from "../models/taskModel.js";
 
 const createTask = async (req, res, next) => {
   try {
-    const { name, category, dueDate, description, priority } = req.body;
+    const { name, category, dueDate, description, priority, status } = req.body;
     const owner = req.user.id;
 
     const task = await Task.create({
@@ -12,6 +12,7 @@ const createTask = async (req, res, next) => {
       description: description,
       priority: priority,
       owner: owner,
+      status: status,
     });
 
     if (!task) {
@@ -39,7 +40,7 @@ const getAllTasksByUser = async (req, res, next) => {
 
 const getTasks = async (req, res, next) => {
   try {
-    const { pageNo } = req.query;
+    const pageNo = Number(req.query.pageNo);
     const vitalTask = await Task.find({ owner: req.user.id })
       .skip(5 * pageNo)
       .limit(5);
@@ -84,4 +85,24 @@ const updateTask = async (req, res) => {
   }
 };
 
-export { createTask, getAllTasksByUser, getTasks, deleteTask, updateTask };
+const getTaskById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const task = await Task.findById(id);
+    if (!task) {
+      return res.status(404).json({ message: "Not Found" });
+    }
+    return res.status(200).send(task);
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export {
+  createTask,
+  getAllTasksByUser,
+  getTasks,
+  deleteTask,
+  updateTask,
+  getTaskById,
+};

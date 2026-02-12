@@ -115,7 +115,12 @@ const Sidebar = () => {
           </div>
           <div className="flex">
             <FaTasks className="text-white" size={32} />
-            <Link className="text-white ml-4">My Tasks</Link>
+            <Link
+              className="text-white ml-4"
+              to={`${user ? "/tasks" : "/login"}`}
+            >
+              My Tasks
+            </Link>
           </div>
           <div className="flex">
             <MdOutlineCategory className="text-white" size={32} />

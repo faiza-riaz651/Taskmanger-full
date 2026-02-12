@@ -15,7 +15,8 @@ import UpdateByAdmin from "./pages/Admin/UpdateByAdmin.jsx";
 import CreateCategory from "./pages/Category/CreateCategory.jsx";
 import CategoryList from "./pages/Category/CategoryList.jsx";
 import TasksByCat from "./pages/Category/TasksByCat.jsx";
-
+import TaskDetail from "./pages/Tasks/TaskDetail.jsx";
+import TaskDetail2 from "./pages/Tasks/TaskDetail2.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -46,6 +47,11 @@ const router = createBrowserRouter([
         element: <CategoryList />,
       },
       { path: "task-by-cat", element: <TasksByCat /> },
+      {
+        path: "tasks",
+        element: <TaskDetail />,
+        children: [{ path: "", element: <TaskDetail2 /> }],
+      },
     ],
   },
 ]);
