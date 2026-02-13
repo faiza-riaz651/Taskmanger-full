@@ -1,10 +1,13 @@
 import React from "react";
 import moment from "moment";
 import { LuCircle } from "react-icons/lu";
+import { useSelector } from "react-redux";
 const TaskDetail1 = ({ task, selectedId }) => {
+  const path = useSelector((state) => state.prevPathInfo);
+  if (!task) return null;
   return (
     <div
-      className={` flex flex-col border-2 border-gray-500 rounded-lg w-[23rem]   ml-6 mt-2 mb-2`}
+      className={` flex flex-col ${path?.currPath === "/" ? "border-none" : "border-2 border-gray-500"} rounded-lg w-[23rem]   ml-6 mt-2 mb-2 shadow-lg`}
     >
       <div className="flex items-start">
         <div className="mt-5 ml-2">

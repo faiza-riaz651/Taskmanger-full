@@ -13,7 +13,7 @@ const CreateTask = () => {
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
   const [status, setStatus] = useState("");
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState("");
   const { data: allCats = [] } = useGetAllCatQuery();
 
   // useEffect(() => {
@@ -22,7 +22,8 @@ const CreateTask = () => {
 
   const [createTask] = useCreateTaskMutation();
 
-  const handleCreateTask = async () => {
+  const handleCreateTask = async (e) => {
+    e.preventDefault();
     try {
       const task = await createTask({
         name,
@@ -45,7 +46,7 @@ const CreateTask = () => {
           <h1 className="font-bold ml-4 my-1 text-lg underline decoration-2 decoration-red-500 underline-offset-3">
             Create Task
           </h1>
-          <form className="ml-4">
+          <form className="ml-4" onSubmit={(e) => handleCreateTask(e)}>
             <div className="flex flex-col my-1">
               <label htmlFor="name" className="font-semibold ">
                 Title
@@ -137,9 +138,8 @@ const CreateTask = () => {
             </div>
 
             <button
-              type="button"
+              type="submit"
               className="bg-[#FF5C5C] text-white py-3 px-8 border-none rounded-lg hover:outline-2 hover:outline-[#FF5C5C] hover:outline-offset-2 mb-4 font-semibold"
-              onClick={() => handleCreateTask()}
             >
               Create
             </button>

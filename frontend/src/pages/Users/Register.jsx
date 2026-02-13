@@ -15,15 +15,13 @@ const Register = () => {
   const [registerUser, { isLoading, isError }] = useRegisterUserMutation();
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
-  const [nameErr, setNameErr] = useState(false);
-  const [emailErr, setEmailErr] = useState(false);
-  const [phoneNoErr, setphoneNoErr] = useState(false);
-  const [passwordErr, setPasswordErr] = useState(false);
+
   const [cPassErr, setCPassErr] = useState(false);
 
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm();
   const submitHandler = async (data) => {
@@ -148,6 +146,9 @@ const Register = () => {
                   value: true,
                   message: "Password Confirmation is required field",
                 },
+                validate: (value) =>
+                  value === watch("password") ||
+                  "Two password fields must match",
               })}
             />
           </div>

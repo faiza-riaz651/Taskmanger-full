@@ -66,7 +66,7 @@ const TaskDetail = () => {
           )}
         </div>
       </div>
-      <div>
+      <div className="flex-1">
         <Outlet context={{ id: id }} />
       </div>
     </div>

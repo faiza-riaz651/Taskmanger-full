@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosSearch } from "react-icons/io";
 import { SlCalender } from "react-icons/sl";
@@ -9,6 +9,7 @@ import { IoIosLogIn } from "react-icons/io";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { Link } from "react-router-dom";
 const Nav = () => {
+  const [calender, setCalender] = useState(false);
   const user = useSelector((state) => state.userInfo.user);
   const date = new Date();
   console.log(date.getDay() % 6);
@@ -21,6 +22,7 @@ const Nav = () => {
     "Friday",
     "Saturday",
   ];
+  const calenderRef = useRef(null);
 
   return (
     <div>
@@ -37,7 +39,7 @@ const Nav = () => {
           <input
             type="text"
             placeholder="Search Your Task Here..."
-            className="p-1 w-full"
+            className="p-1 w-full focus:outline-none focus:ring-0"
           />
           <div className="h-full ">
             <IoIosSearch

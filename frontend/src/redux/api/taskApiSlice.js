@@ -28,6 +28,14 @@ const taskApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["Tasks"],
     }),
 
+    getTasksByCat: builder.query({
+      query: () => ({
+        url: `tasks/task/${category}`,
+        method: "GET",
+      }),
+      providesTags: ["Tags"],
+    }),
+
     getAllTasks: builder.query({
       query: (pageNo) => ({
         url: `tasks/paged-tasks`,
@@ -43,6 +51,18 @@ const taskApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Tasks"],
     }),
 
+    getTaskSummary: builder.query({
+      query: () => ({
+        url: "/tasks/all-task",
+      }),
+      providesTags: ["Tasks"],
+    }),
+    getUrgentTasks: builder.query({
+      query: () => ({
+        url: `tasks/urgent-task`,
+      }),
+      providesTags: ["Tasks"],
+    }),
     getTaskById: builder.query({
       query: (id) => ({
         url: `tasks/task/${id}`,
@@ -59,4 +79,7 @@ export const {
   useUpdateTaskMutation,
   useCreateTaskMutation,
   useGetVitalTaskQuery,
+  useGetTaskSummaryQuery,
+  useGetUrgentTasksQuery,
+  useGetTasksByCatQuery,
 } = taskApiSlice;

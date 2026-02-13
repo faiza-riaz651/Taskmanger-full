@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { TbUrgent } from "react-icons/tb";
 import { MdOutlineCategory } from "react-icons/md";
 import { IoSettings } from "react-icons/io5";
+import { IoMdStats } from "react-icons/io";
 import { IoIosLogIn } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
 import { SiGnuprivacyguard } from "react-icons/si";
@@ -137,8 +138,13 @@ const Sidebar = () => {
             </Link>
           </div>
           <div className="flex">
-            <IoSettings className="text-white" size={31} />
-            <Link className="text-white ml-4">Settings</Link>
+            <IoMdStats className="text-white" size={31} />
+            <Link
+              className="text-white ml-4"
+              to={`${user ? "/task-summary" : "/login"}`}
+            >
+              Task Summary
+            </Link>
           </div>
         </div>
         <div className="mt-auto  flex justify-between items-center mt-8 ">

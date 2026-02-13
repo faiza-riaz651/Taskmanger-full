@@ -110,6 +110,34 @@ const getVitalTasks = async (req, res, next) => {
   }
 };
 
+const getTaskApproachingDeadline = async (req, res, next) => {
+  try {
+    const tasks = await Task.find({ owner: req.user.id })
+      .sort({ dueDate: 1 })
+      .limit(2);
+    if (!tasks) {
+      return res.status(404).json({ message: "Not Found" });
+    }
+    return res.status(200).send(tasks);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const getTaskByCat = async (req, res) => {
+  try {
+    const { category } = req.body;
+    const tasks = await Task.find({ category: category, owner: req, user });
+
+    if (!tasks) {
+      return res.status(404).json({ message: "Not Found" });
+    }
+    return res.status(200).send(tasks);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   createTask,
   getAllTasksByUser,
@@ -118,4 +146,6 @@ export {
   updateTask,
   getTaskById,
   getVitalTasks,
+  getTaskApproachingDeadline,
+  getTaskByCat,
 };

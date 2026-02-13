@@ -8,37 +8,38 @@ const AdminDashboard = () => {
 
   const allUsersFilter = allUsers?.filter((user) => !user.isAdmin);
   return (
-    <div className="   ml-62">
-      <table className="border-2  border-[#FF5C5C] rounded-tr-lg rounded-tl-lg border-separate border-spacing-0 py-4 ">
-        <tr>
-          <th className="w-[15rem]">Id</th>
-          <th className="w-[15rem] ">Name</th>
-          <th className="w-[15rem]">Email</th>
-          <th className="w-[15rem]">Contact Number</th>
-          <th className="w-[15rem]">Operation</th>
+    <div className="   ml-62 mr-3">
+      <table className="border  ">
+        <tr className="bg-[#FF5C5C] text-white">
+          <th className="w-[15rem]  border p-3">Id</th>
+          <th className="w-[15rem] border">Name</th>
+          <th className="w-[15rem] border">Email</th>
+          <th className="w-[15rem] border">Contact Number</th>
+          <th className="w-[15rem] border">Operation</th>
         </tr>
-      </table>
-      {allUsersFilter?.map((user) => (
-        <>
-          <table className="border-2 border-collapse border-[#FF5C5C] text-wrap">
-            <tr className="">
-              <td className="w-[15rem]">{user?._id}</td>
-              <td className="w-[12rem]">{user?.name}</td>
-              <td className="w-[12rem] ">{user?.email}</td>
-              <td className="w-[12rem]">{user?.phoneNo}</td>
-              <td className="w-[12rem] flex gap-x-2 my-2">
-                <DeleteByAdmin id={user?._id} />
-                <UpdateByAdmin
-                  id={user?._id}
-                  userName={user?.name}
-                  userEmail={user?.email}
-                  userPhoneNo={user?.phoneNo}
-                />
+
+        {allUsersFilter?.map((user) => (
+          <>
+            <tr className=" ">
+              <td className="w-[15rem] border pl-2">{user?._id}</td>
+              <td className="w-[12rem] border pl-2">{user?.name}</td>
+              <td className="w-[12rem] border pl-2">{user?.email}</td>
+              <td className="w-[12rem] border pl-2">{user?.phoneNo}</td>
+              <td className="border pl-2">
+                <div className="w-[12rem]  flex gap-x-2 my-2">
+                  <DeleteByAdmin id={user?._id} />
+                  <UpdateByAdmin
+                    id={user?._id}
+                    userName={user?.name}
+                    userEmail={user?.email}
+                    userPhoneNo={user?.phoneNo}
+                  />
+                </div>
               </td>
             </tr>
-          </table>
-        </>
-      ))}
+          </>
+        ))}
+      </table>
     </div>
   );
 };
