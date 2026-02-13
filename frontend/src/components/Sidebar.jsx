@@ -111,7 +111,12 @@ const Sidebar = () => {
           </div>
           <div className="flex">
             <TbUrgent className="text-white" size={32} />
-            <Link className="text-white ml-4">Vital Tasks</Link>
+            <Link
+              className="text-white ml-4"
+              to={`${user ? "/vital-task" : "/login"}`}
+            >
+              Vital Tasks
+            </Link>
           </div>
           <div className="flex">
             <FaTasks className="text-white" size={32} />

@@ -40,4 +40,17 @@ const deleteCategory = async (req, res, next) => {
   }
 };
 
-export { createCategory, allCategorysByUser, deleteCategory };
+const allCat = async (req, res, next) => {
+  try {
+    const allCategory = await Category.find({ user: req.user.id }).populate(
+      "user",
+      "email",
+    );
+
+    return res.status(200).send(allCategory);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export { createCategory, allCategorysByUser, deleteCategory, allCat };

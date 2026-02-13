@@ -98,6 +98,18 @@ const getTaskById = async (req, res, next) => {
   }
 };
 
+const getVitalTasks = async (req, res, next) => {
+  try {
+    const vitalTask = await Task.find({ priority: "Extreme" });
+    if (!vitalTask) {
+      return res.status(404).json({ message: "Not Found" });
+    }
+    return res.status(200).send(vitalTask);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 export {
   createTask,
   getAllTasksByUser,
@@ -105,4 +117,5 @@ export {
   deleteTask,
   updateTask,
   getTaskById,
+  getVitalTasks,
 };

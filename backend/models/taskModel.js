@@ -12,7 +12,11 @@ const taskSchema = new mongoose.Schema({
   },
   category: { type: Schema.Types.ObjectId, ref: "Category" },
   owner: { type: Schema.Types.ObjectId, ref: "Users" },
-  status: { type: String, enum: ["Completed", "In Progress", "Not Started"] },
+  status: {
+    type: String,
+    enum: ["Completed", "In Progress", "Not Started"],
+    default: "Not Started",
+  },
 });
 
 const Task = mongoose.model("Task", taskSchema);

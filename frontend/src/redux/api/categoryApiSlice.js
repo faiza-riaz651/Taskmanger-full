@@ -16,6 +16,14 @@ const categorySlice = apiSlice.injectEndpoints({
         url: `categorys/category/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Categorys"],
+    }),
+
+    getAllCat: builder.query({
+      query: () => ({
+        url: `categorys/allCat`,
+      }),
+      providesTags: ["Categorys"],
     }),
 
     getAllCategorys: builder.query({
@@ -32,4 +40,5 @@ export const {
   useCreateCategoryMutation,
   useGetAllCategorysQuery,
   useDeleteCategoryMutation,
+  useGetAllCatQuery,
 } = categorySlice;

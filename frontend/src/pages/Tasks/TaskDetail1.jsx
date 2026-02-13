@@ -4,7 +4,7 @@ import { LuCircle } from "react-icons/lu";
 const TaskDetail1 = ({ task, selectedId }) => {
   return (
     <div
-      className={` flex flex-col border-2 border-gray-500 rounded-lg w-[23rem] h-[10rem]  ml-6 mt-2 mb-2`}
+      className={` flex flex-col border-2 border-gray-500 rounded-lg w-[23rem]   ml-6 mt-2 mb-2`}
     >
       <div className="flex items-start">
         <div className="mt-5 ml-2">

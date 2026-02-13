@@ -17,6 +17,8 @@ import CategoryList from "./pages/Category/CategoryList.jsx";
 import TasksByCat from "./pages/Category/TasksByCat.jsx";
 import TaskDetail from "./pages/Tasks/TaskDetail.jsx";
 import TaskDetail2 from "./pages/Tasks/TaskDetail2.jsx";
+import CreateTask from "./pages/Tasks/CreateTask.jsx";
+import VitalTask from "./pages/Tasks/VitalTask.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,6 +52,12 @@ const router = createBrowserRouter([
       {
         path: "tasks",
         element: <TaskDetail />,
+        children: [{ path: "", element: <TaskDetail2 /> }],
+      },
+      { path: "create-task", element: <CreateTask /> },
+      {
+        path: "vital-task",
+        element: <VitalTask />,
         children: [{ path: "", element: <TaskDetail2 /> }],
       },
     ],
