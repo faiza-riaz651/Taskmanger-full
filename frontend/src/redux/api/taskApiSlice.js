@@ -29,9 +29,10 @@ const taskApiSlice = apiSlice.injectEndpoints({
     }),
 
     getTasksByCat: builder.query({
-      query: () => ({
-        url: `tasks/task/${category}`,
+      query: ({ pageNo, category }) => ({
+        url: `tasks/task/category/${category}`,
         method: "GET",
+        params: pageNo,
       }),
       providesTags: ["Tags"],
     }),
@@ -45,8 +46,9 @@ const taskApiSlice = apiSlice.injectEndpoints({
     }),
 
     getVitalTask: builder.query({
-      query: () => ({
+      query: (pageNo) => ({
         url: `tasks/vital-task`,
+        params: { pageNo },
       }),
       providesTags: ["Tasks"],
     }),

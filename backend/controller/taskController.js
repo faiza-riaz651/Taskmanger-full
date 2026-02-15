@@ -100,7 +100,10 @@ const getTaskById = async (req, res, next) => {
 
 const getVitalTasks = async (req, res, next) => {
   try {
-    const vitalTask = await Task.find({ priority: "Extreme" });
+    const pageNo = Number(req.query.pageNo) || 0;
+    const vitalTask = await Task.find({ priority: "Extreme" })
+      .skip(pageNo * 5)
+      .limit(5);
     if (!vitalTask) {
       return res.status(404).json({ message: "Not Found" });
     }
@@ -126,14 +129,19 @@ const getTaskApproachingDeadline = async (req, res, next) => {
 
 const getTaskByCat = async (req, res) => {
   try {
-    const { category } = req.body;
-    const tasks = await Task.find({ category: category, owner: req, user });
+    const { category } = req.params;
+
+    const pageNo = Number(req.query.pageNo) || 0;
+    const tasks = await Task.find({ category: category })
+      .skip(5 * pageNo)
+      .limit(5);
 
     if (!tasks) {
-      return res.status(404).json({ message: "Not Found" });
+      return res.status(404).json({ message: "suvusdbvusdbvusbd" });
     }
     return res.status(200).send(tasks);
   } catch (error) {
+    console.log("not hitting");
     return res.status(500).json({ message: error.message });
   }
 };

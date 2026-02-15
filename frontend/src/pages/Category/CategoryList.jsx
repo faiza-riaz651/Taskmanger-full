@@ -44,7 +44,7 @@ const CategoryList = () => {
                       <FaEye
                         size={40}
                         className="text-white border-none rounded-md py-1 bg-[#FF5C5C] ml-4"
-                        onClick={() => navigateTo("/task-by-cat")}
+                        onClick={() => navigateTo(`/task-by-cat/${cat._id}`)}
                       />
                     </div>
                   </div>

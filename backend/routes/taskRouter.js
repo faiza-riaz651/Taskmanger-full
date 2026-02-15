@@ -20,11 +20,12 @@ taskRouter
   .route("/urgent-task")
   .get(isAuthenticated, getTaskApproachingDeadline);
 taskRouter.route("/paged-tasks").get(isAuthenticated, getTasks);
-taskRouter.route("/task/:category").get(isAuthenticated, getTaskByCat);
+
 taskRouter
   .route("/task/:id")
   .delete(isAuthenticated, deleteTask)
   .get(isAuthenticated, getTaskById)
   .patch(isAuthenticated, updateTask);
+taskRouter.route("/task/category/:category").get(isAuthenticated, getTaskByCat);
 
 export default taskRouter;

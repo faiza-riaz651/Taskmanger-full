@@ -50,7 +50,11 @@ const router = createBrowserRouter([
         path: "category-list",
         element: <CategoryList />,
       },
-      { path: "task-by-cat", element: <TasksByCat /> },
+      {
+        path: "task-by-cat/:category",
+        element: <TasksByCat />,
+        children: [{ path: "", element: <TaskDetail2 /> }],
+      },
       {
         path: "tasks",
         element: <TaskDetail />,

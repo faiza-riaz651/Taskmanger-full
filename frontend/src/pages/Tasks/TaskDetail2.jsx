@@ -14,8 +14,10 @@ const TaskDetail2 = () => {
   const path = useSelector((state) => state.prevPathInfo.prevPath);
   const [deleteTask] = useDeleteTaskMutation();
   const { id } = useOutletContext();
-  console.log(id);
+  console.log("id from ", id);
+
   const { data: task, isError, error } = useGetTaskByIdQuery(id);
+  console.log(task);
   const handleDelete = async (id) => {
     try {
       await deleteTask(id).unwrap();
