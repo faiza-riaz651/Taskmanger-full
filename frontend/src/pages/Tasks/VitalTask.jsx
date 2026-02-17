@@ -10,7 +10,7 @@ const VitalTask = () => {
 
   const [pageNo, setPageNo] = useState(0);
   const { data: allTasks = [] } = useGetVitalTaskQuery(pageNo);
-  console.log(allTasks);
+  console.log("vitaltasks", allTasks);
   const [id, setId] = useState(null);
 
   useEffect(() => {
@@ -21,8 +21,8 @@ const VitalTask = () => {
     }
   }, [allTasks, pageNo]);
   return (
-    <div className="flex ml-64">
-      <div className="border-1 border-gray-500 rounded-md flex flex-col w-[30rem] ">
+    <div className="flex md:ml-64  ml-2">
+      <div className="border-1 border-gray-500 rounded-md flex flex-col w-[23rem] md:w-[30rem] ">
         <p className="font-bold ml-1 underline decoration-2 decoration-red-500 underline-offset-2">
           Vital Tasks
         </p>

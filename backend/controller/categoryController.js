@@ -1,9 +1,13 @@
 import Category from "../models/categoryModel.js";
-
+import mongoose from "mongoose";
 const createCategory = async (req, res, next) => {
   try {
     const { name } = req.body;
-    const category = await Category.create({ name: name, user: req.user.id });
+    console.log(req.user._id);
+    const category = await Category.create({
+      name: name,
+      user: new mongoose.Types.ObjectId(req.user._id),
+    });
     if (!category) {
       return res.status(500).json({ message: "Creation operatin failed!" });
     }
@@ -16,7 +20,10 @@ const createCategory = async (req, res, next) => {
 const allCategorysByUser = async (req, res, next) => {
   try {
     let pageNo = Number(req.query.pageNo) || 0;
-    const allCategory = await Category.find({ user: req.user.id })
+    console.log(req.user._id);
+    const allCategory = await Category.find({
+      user: req.user._id,
+    })
       .populate("user", "email")
       .skip(pageNo * 5)
       .limit(5);
@@ -42,10 +49,9 @@ const deleteCategory = async (req, res, next) => {
 
 const allCat = async (req, res, next) => {
   try {
-    const allCategory = await Category.find({ user: req.user.id }).populate(
-      "user",
-      "email",
-    );
+    const allCategory = await Category.find({
+      user: req.user._id,
+    }).populate("user", "email");
 
     return res.status(200).send(allCategory);
   } catch (error) {

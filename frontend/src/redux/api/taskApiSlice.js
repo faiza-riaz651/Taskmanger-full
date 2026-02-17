@@ -63,7 +63,7 @@ const taskApiSlice = apiSlice.injectEndpoints({
       query: () => ({
         url: `tasks/urgent-task`,
       }),
-      providesTags: ["Tasks"],
+      providesTags: ["Tasks", "Users"],
     }),
     getTaskById: builder.query({
       query: (id) => ({

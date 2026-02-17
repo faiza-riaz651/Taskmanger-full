@@ -37,7 +37,8 @@ const Register = () => {
       dispatch(saveUserInfo(user.data));
       navigateTo("/");
     } catch (error) {
-      toast.error(error.message || error.data?.error || "Something Went Wrong");
+      console.log(error?.message || error?.error);
+      toast.error(error.message);
     }
   };
   return (

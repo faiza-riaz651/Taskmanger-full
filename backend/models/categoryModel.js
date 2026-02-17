@@ -6,10 +6,9 @@ const categorySchema = new Schema({
   user: { type: Schema.Types.ObjectId, required: true, ref: "Users" },
 });
 
-categorySchema.pre("findOneAndDelete", async function (next) {
+categorySchema.pre("findOneAndDelete", async function () {
   const category = this.getFilter();
   await Task.deleteMany({ category: category._id });
-  // next();
 });
 
 const Category = mongoose.model("Category", categorySchema);

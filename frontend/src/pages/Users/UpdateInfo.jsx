@@ -13,7 +13,7 @@ const UpdateInfo = () => {
   const [img, setImg] = useState(user?.image || null);
   const [updateUser, isLoading] = useUpdateUserMutation();
   const navigateTo = useNavigate();
-  const id = user.id;
+  const id = user._id;
   console.log(id);
   const dispatch = useDispatch();
 
@@ -54,18 +54,17 @@ const UpdateInfo = () => {
   }, [img]);
 
   return (
-    <div className="flex fixed items-center h-[100vh] justify-center w-full bg-black/80  z-[1001] top-0 left-0 ">
-      <div className="w-[80%] h-[75%] bg-white rounded-md flex flex-col">
-        <h1 className="font-bold text-lg ml-7">Update Account Info!</h1>
-
+    <div className="flex fixed items-center h-[100vh] md:justify-center  justify-start w-full bg-black/80  z-[1001] top-0 left-0 ">
+      <div className="w-[80%] h-[75%] ml-4 bg-white rounded-md flex flex-col ">
         <form
           action=""
           className="flex flex-col "
           onSubmit={(e) => handleClick(e)}
           encrypt="multipart/form-data"
         >
-          <div className="flex ">
-            <div className="flex flex-col w-[65%]">
+          <h1 className="font-bold text-lg ml-7">Update Account Info!</h1>
+          <div className="flex flex-wrap ">
+            <div className="flex flex-col w-[65%] flex-wrap">
               <div className=" ml-14 mt-3">
                 <h1 className="font-bold my-1 ">Username:</h1>
                 <input
@@ -98,21 +97,23 @@ const UpdateInfo = () => {
                 )}
               </div>
             </div>
-            <div className="font-bold my-1 ml-24">
+            <div className="font-bold my-1 md:ml-24 ml-8  ">
               {user?.image && (
                 <img
-                  src={`http://localhost:5000/${user.image}`}
+                  src={`${user?.image ? `http://localhost:5000/${user.image}` : ""}`}
                   alt="Profile"
-                  className="w-32 h-32 object-cover rounded-full mb-2 "
+                  className="w-8 hidden  h-8 md:w-32 md:h-32 object-cover rounded-full mb-2 "
                 />
               )}
 
-              <label className="font-bold">Upload an image:</label>
+              <label className="md:block md:font-bold hidden">
+                Upload an image:
+              </label>
 
               <input
                 type="file"
                 accept=".png,.jpg,.jpeg"
-                className="border-2 border-gray-500 text-gray-400 h-24 pl-2 rounded-md mt-3"
+                className="border-2 border-gray-500 text-gray-400 h-12 ml-6 md:ml-2 w-38 md:h-24 md:w-56 pl-2 rounded-md mt-1 md:mt-3"
                 onChange={(e) => {
                   setImg(e.target.files[0]);
                 }}

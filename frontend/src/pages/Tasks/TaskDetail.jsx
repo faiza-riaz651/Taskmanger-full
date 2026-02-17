@@ -21,8 +21,8 @@ const TaskDetail = () => {
     }
   }, [allTasks, pageNo]);
   return (
-    <div className="flex ml-64 w-[60rem] ">
-      <div className="border-1 border-gray-500 rounded-md flex flex-col w-[30rem] ">
+    <div className="flex ml-2 md:ml-64 w-[27rem]  md:w-[60rem] ">
+      <div className="border-1 border-gray-500 rounded-md flex flex-col w-[23rem] md:w-[30rem] ">
         <p className="font-bold ml-1 underline decoration-2 decoration-red-500 underline-offset-2">
           My Tasks
         </p>
@@ -67,7 +67,7 @@ const TaskDetail = () => {
         </div>
       </div>
 
-      <div className="">
+      <div className="hidden md:block">
         <Outlet context={{ id: id }} />
       </div>
     </div>

@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { IoIosLogIn } from "react-icons/io";
 import { SiGnuprivacyguard } from "react-icons/si";
 import { Link } from "react-router-dom";
+import Calender from "../../components/Calender";
 const Nav = () => {
   const [calender, setCalender] = useState(false);
   const user = useSelector((state) => state.userInfo.user);
@@ -52,8 +53,13 @@ const Nav = () => {
           {user ? (
             <>
               <div className="flex ml-6 p-1 border-none rounded-md bg-[#FF5C5C]">
-                <SlCalender className="text-white" size={27} />
+                <SlCalender
+                  className="text-white"
+                  size={27}
+                  onClick={() => setCalender(!calender)}
+                />
               </div>
+              {calender && <Calender calender={calender} />}
             </>
           ) : (
             <>

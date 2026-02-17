@@ -25,7 +25,7 @@ const CreateCategory = () => {
   };
 
   return (
-    <div className="ml-75 w-[48rem] h-[28rem] border-2 border-gray-500 rounded-lg flex flex-col ">
+    <div className="ml-4 md:ml-75 w-[48rem] h-[28rem] border-2 border-gray-500 rounded-lg flex flex-col ">
       <div className="flex justify-between mx-2 my-2 font-semibold">
         <h1 className="text-lg underline decoration-2 decoration-red-500 underline-offset-3 ">
           Create Category

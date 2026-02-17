@@ -10,7 +10,9 @@ import TaskDetail1 from "../pages/Tasks/TaskDetail1";
 const Dashboard = () => {
   const user = useSelector((state) => state.userInfo.user);
   const path = useSelector((state) => state.prevPathInfo);
-  const { data: tasks = [] } = useGetTaskSummaryQuery();
+  const { data: tasks = [] } = useGetTaskSummaryQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const totalTasks = tasks?.length;
   const completedTasks = tasks?.filter((task) => task.status === "Completed");
   const inProgressTasks = tasks?.filter(
@@ -30,12 +32,15 @@ const Dashboard = () => {
     <>
       {user ? (
         <div className="flex flex-col ">
-          <div className="ml-64 mt-2  border-gray-500 mr-3 text-xl font-bold  w-[56rem]  ">
+          <div className=" md:ml-64 ml-6 mt-2  border-gray-500 mr-3 text-xl font-bold  w-[56rem]  ">
             {path?.prevPath === "/register"
               ? `Welcome ${user?.name}`
               : `Welcome Back, ${user?.name}`}
           </div>
-          <div className="ml-64 mr-7 w-[58rem] rounded-lg shadow-2xl  ">
+          <div
+            className="md:ml-64 ml-6 mr-7  w-[30rem] 
+          md:w-[58rem]  rounded-lg shadow-2xl  "
+          >
             <div className="text-[#FF5C5C] ml-5 flex items-center">
               <span className="font-semibold">To-Do</span>
               <MdOutlinePendingActions
@@ -44,9 +49,9 @@ const Dashboard = () => {
                 text-lg
               />
             </div>
-            <div className="flex ">
+            <div className="flex flex-wrap  ">
               <UrgentTask />
-              <div className="flex flex-col pt-14 bg-white border-none rounded-lg">
+              <div className="flex flex-col flex-wrap md:flex md:flex-col md:pt-14 bg-white border-none rounded-lg">
                 <div className="flex ml-4 border-none rounded-lg shadow-xl pb-2  py-6">
                   <DonutChart
                     value={Number(completedPercentage.toFixed(2))}
@@ -82,13 +87,13 @@ const Dashboard = () => {
           </div>
         </div>
       ) : (
-        <div className="ml-64 fixed ">
+        <div className=" ml-5 md:ml-64 fixed ">
           <img
             src="/pexels-goumbik-669615.jpg"
-            className="object-cover w-[98%] "
+            className="object-cover w-[98%]  "
           />
           <div className="absolute bottom-10 left-0 w-full h-full flex items-center justify-center">
-            <div className="bg-white w-[60%] h-64 z-50 rounded-lg  flex flex-col items-center justify-center gap-y-6">
+            <div className="bg-white w-[60%] h-64 z-50 rounded-lg  flex flex-col items-center justify-center gap-y-6 mt-18">
               <div className="text-lg font-semibold">
                 Want To Manage Yourself More Effectively and Efficiently? Then:
               </div>

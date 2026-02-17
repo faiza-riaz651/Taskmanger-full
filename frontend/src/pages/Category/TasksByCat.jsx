@@ -23,10 +23,13 @@ const TasksByCat = () => {
     }
   }, [allTasks, pageNo]);
   return (
-    <div className="flex ml-64 w-[100rem] ">
+    <div className="flex ml-4 md:ml-64 w-[25rem] md:w-[100rem] ">
       <div className="border-1 border-gray-500 rounded-md flex flex-col w-[30rem] ">
-        <p className="font-bold ml-1 underline decoration-2 decoration-red-500 underline-offset-2">
-          My Tasks
+        <p
+          className="font-bold ml-1 underline decoration-2 decoration-red-500 underline-offset-2 break-words
+"
+        >
+          Tasks By Category: {allTasks[0]?.category?.name}
         </p>
 
         <div>
@@ -69,7 +72,7 @@ const TasksByCat = () => {
         </div>
       </div>
 
-      <div className="">
+      <div className="hidden md:block">
         <Outlet context={{ id: id }} />
       </div>
     </div>

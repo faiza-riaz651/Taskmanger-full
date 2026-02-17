@@ -21,6 +21,7 @@ const createUser = async (req, res, next) => {
       phoneNo,
       isAdmin: req.body?.isAdmin,
     });
+
     req.login(user, function (err) {
       if (err) {
         return next(err);

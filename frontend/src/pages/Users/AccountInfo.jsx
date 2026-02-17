@@ -45,7 +45,7 @@ const AccountInfo = () => {
         </div>
         <div className="flex mb-3  justify-start items-end gap-x-2 ml-4">
           <img
-            src="/public/julius-drost-dS-q7-zkD9c-unsplash.jpg"
+            src={`${user?.image ? `http://localhost:5000/${user.image}` : ""}`}
             alt=""
             className="w-28 h-28 rounded-full outline outline-offset-2"
           />

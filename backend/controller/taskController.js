@@ -1,10 +1,12 @@
 import Task from "../models/taskModel.js";
+import mongoose from "mongoose";
 
 const createTask = async (req, res, next) => {
   try {
     const { name, category, dueDate, description, priority, status } = req.body;
-    const owner = req.user.id;
-
+    const owner = req.user._id;
+    console.log(req.user);
+    console.log(owner);
     const task = await Task.create({
       name: name,
       category: category,
@@ -15,10 +17,6 @@ const createTask = async (req, res, next) => {
       status: status,
     });
 
-    if (!task) {
-      return res.status(404).json({ message: "Not Found" });
-    }
-
     return res.status(201).send(task);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -27,7 +25,9 @@ const createTask = async (req, res, next) => {
 
 const getAllTasksByUser = async (req, res, next) => {
   try {
-    const allTasks = await Task.find({ owner: req.user.id });
+    const allTasks = await Task.find({
+      owner: new mongoose.Types.ObjectId(req.user._id),
+    });
 
     if (!allTasks) {
       return res.status(404).json({ message: "Not Found" });
@@ -41,7 +41,9 @@ const getAllTasksByUser = async (req, res, next) => {
 const getTasks = async (req, res, next) => {
   try {
     const pageNo = Number(req.query.pageNo);
-    const vitalTask = await Task.find({ owner: req.user.id })
+    const vitalTask = await Task.find({
+      owner: new mongoose.Types.ObjectId(req.user._id),
+    })
       .skip(5 * pageNo)
       .limit(5);
     if (!vitalTask) {
@@ -101,7 +103,10 @@ const getTaskById = async (req, res, next) => {
 const getVitalTasks = async (req, res, next) => {
   try {
     const pageNo = Number(req.query.pageNo) || 0;
-    const vitalTask = await Task.find({ priority: "Extreme" })
+    const vitalTask = await Task.find({
+      priority: "Extreme",
+      owner: new mongoose.Types.ObjectId(req.user._id),
+    })
       .skip(pageNo * 5)
       .limit(5);
     if (!vitalTask) {
@@ -115,7 +120,9 @@ const getVitalTasks = async (req, res, next) => {
 
 const getTaskApproachingDeadline = async (req, res, next) => {
   try {
-    const tasks = await Task.find({ owner: req.user.id })
+    const tasks = await Task.find({
+      owner: new mongoose.Types.ObjectId(req.user._id),
+    })
       .sort({ dueDate: 1 })
       .limit(2);
     if (!tasks) {
@@ -132,7 +139,11 @@ const getTaskByCat = async (req, res) => {
     const { category } = req.params;
 
     const pageNo = Number(req.query.pageNo) || 0;
-    const tasks = await Task.find({ category: category })
+    const tasks = await Task.find({
+      category: category,
+      owner: new mongoose.Types.ObjectId(req.user._id),
+    })
+      .populate("category", "name")
       .skip(5 * pageNo)
       .limit(5);
 

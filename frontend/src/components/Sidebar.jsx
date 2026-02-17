@@ -82,9 +82,9 @@ const Sidebar = () => {
           <div className="flex flex-col relative items-center pt-26">
             <div className="absolute   top-[-2rem]">
               <img
-                src="/julius-drost-dS-q7-zkD9c-unsplash.jpg"
+                src={`${user?.image ? `http://localhost:5000/${user.image}` : ""}`}
                 alt=""
-                className="rounded-full w-32 h-32 outline-2 bg-white outline-offset-2 outline-white "
+                className="rounded-full w-32 h-32 outline-2 bg-white outline-offset-2 outline-white  object-cover"
               />
             </div>
             <div className="flex flex-col mt-0">

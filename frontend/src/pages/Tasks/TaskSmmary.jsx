@@ -18,7 +18,7 @@ const TaskSmmary = () => {
   const moderateTasks = tasks?.filter((task) => task.priority === "Moderate");
 
   return (
-    <div className="ml-65 w-[64rem] mr-3 border-2 border-gray-400 rounded-lg flex flex-col  ">
+    <div className="ml-4 md:ml-65 w-[64rem] mr-3 border-2 border-gray-400 rounded-lg flex flex-col  ">
       <div className="flex justify-between items-center mt-3 mb-5 ml-1">
         <h1 className="ml-4 font-bold text-lg  underline underline-offset-3 decoration-red-500 ">
           Tasks Summary

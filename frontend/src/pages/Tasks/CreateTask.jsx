@@ -15,6 +15,7 @@ const CreateTask = () => {
   const [status, setStatus] = useState("");
   const [category, setCategory] = useState("");
   const { data: allCats = [] } = useGetAllCatQuery();
+  console.log("this is allcats from create tasks", allCats);
 
   // useEffect(() => {
   //   console.log(name, dueDate, category, priority, status, description);
@@ -35,14 +36,14 @@ const CreateTask = () => {
       }).unwrap();
       toast.success(`${task.name} task is created`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error?.message || error?.error);
     }
   };
 
   return (
     <>
       {allCats?.length > 0 ? (
-        <div className="ml-65 w-[64rem] mr-3 border border-gray-500 rounded-lg ">
+        <div className="ml-4 md:ml-65 w-[23rem] md:w-[64rem]  mr-3 border border-gray-500 rounded-lg ">
           <h1 className="font-bold ml-4 my-1 text-lg underline decoration-2 decoration-red-500 underline-offset-3">
             Create Task
           </h1>
@@ -60,8 +61,8 @@ const CreateTask = () => {
               />
             </div>
 
-            <div className="flex  my-6 justify-between w-[75%] ">
-              <div className="flex border border-gray-400 p-2 rounded-md">
+            <div className="md:flex flex flex-wrap  my-6 justify-between w-[75%] ">
+              <div className="flex my-1 border border-gray-400 p-2 rounded-md">
                 <label htmlFor="priority" className="font-semibold mr-3 ">
                   Priority:
                 </label>
@@ -127,7 +128,7 @@ const CreateTask = () => {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
-                <option>--Choose Category--</option>
+                <option value="">--Choose Category--</option>
                 {allCats?.length > 0 &&
                   allCats.map((cat) => (
                     <option key={cat._id} value={cat._id}>

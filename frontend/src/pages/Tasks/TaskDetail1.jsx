@@ -7,7 +7,7 @@ const TaskDetail1 = ({ task, selectedId }) => {
   if (!task) return null;
   return (
     <div
-      className={` flex flex-col ${path?.currPath === "/" ? "border-none" : "border-2 border-gray-500"} rounded-lg w-[23rem]   ml-6 mt-2 mb-2 shadow-lg `}
+      className={` flex flex-col ${path?.currPath === "/" ? "border-none" : "border-2 border-gray-500"} rounded-lg w-[20rem] md:w-[23rem]   ml-6 mt-2 mb-2 shadow-lg `}
     >
       <div className="flex items-start">
         <div className="mt-5 ml-2">

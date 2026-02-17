@@ -17,7 +17,7 @@ const CategoryList = () => {
   const path = useSelector((state) => state.prevPathInfo);
 
   return (
-    <div className="ml-64 flex flex-col border-2 border-gray-500 rounded-lg w-[63rem] mr-2 ">
+    <div className="ml-4 md:ml-64 flex flex-col border-2 border-gray-500 rounded-lg w-[25rem] md:w-[63rem] mr-2 ">
       <div className="flex justify-between mx-2 my-2 font-semibold">
         <h1 className="text-lg underline decoration-2 decoration-red-500 underline-offset-3 ">
           Category List
@@ -37,7 +37,7 @@ const CategoryList = () => {
                 <li key={cat._id}>
                   <div className="flex items-center h-18 ">
                     <Link className="text-black text-xl w-84 font-bold  hover:underline  break-words hover:underline-2 ">
-                      {cat.name}
+                      {cat.name.substring(0, 10)}...
                     </Link>
                     <div className="flex ml-32 gap-x-2">
                       <DeleteCategory id={cat._id} />
