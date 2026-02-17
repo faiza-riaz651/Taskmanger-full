@@ -9,6 +9,7 @@ import {
   getAllUsers,
   deleteUser,
 } from "../controller/userController.js";
+import { upload } from "../middleware/imageMiddleware.js";
 import passport from "passport";
 import { isAuthenticated, isAdmin } from "../middleware/userAuth.js";
 
@@ -38,6 +39,7 @@ userRouter.post("/login", (req, res, next) => {
         user: {
           id: user._id,
           name: user.name,
+          image: user.image,
           email: user.email,
           isAdmin: user.isAdmin,
           phoneNo: user.phoneNo,
@@ -62,7 +64,7 @@ userRouter.route("/admin/allusers").get(isAuthenticated, isAdmin, getAllUsers);
 
 userRouter
   .route("/user/:id")
-  .put(isAuthenticated, updateUser)
+  .put(isAuthenticated, upload.single("img"), updateUser)
   .delete(isAuthenticated, deleteUser);
 userRouter
   .route("/user/admin/:id")

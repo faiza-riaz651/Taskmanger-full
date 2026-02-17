@@ -9,6 +9,7 @@ const userSchema = new Schema(
     password: { type: String, required: true, min: 4 },
     phoneNo: { type: Number, required: true, min: 6 },
     isAdmin: { type: Boolean, required: true, default: false },
+    image: { type: String, required: false, default: "" },
   },
   { timestamps: true },
 );

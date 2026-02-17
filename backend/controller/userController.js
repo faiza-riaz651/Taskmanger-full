@@ -92,6 +92,10 @@ const deleteUserByAdmin = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { name, email, phoneNo } = req.body;
+    const image = req.file.filename;
+    console.log(req.body);
+    console.log("imgae is", image);
+
     const id = req?.params?.id;
     console.log(`pritning id of req ${id}`);
     const user = await users.findByIdAndUpdate(
@@ -100,6 +104,7 @@ const updateUser = async (req, res, next) => {
         name: name,
         email: email,
         phoneNo: phoneNo,
+        image: image,
       },
       { new: true },
     );
@@ -109,6 +114,7 @@ const updateUser = async (req, res, next) => {
     req.user.name = req.body?.name || req.user.name;
     req.user.phoneNo = req.body?.phoneNo || req.user.phoneNo;
     req.user.email = req.body?.email || req.user.email;
+    req.user.image = req.file?.filename || req.file.filename;
     console.log(req.user);
     return res.status(200).send(req.user);
   } catch (error) {
@@ -116,6 +122,14 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+// const updateUser = async (req, res, next) => {
+//   try {
+//     console.log(req.body);
+//     console.log(req.file);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 const deleteUser = async (req, res, next) => {
   try {
     const id = req?.params?.id;

@@ -1,7 +1,7 @@
 import express from "express";
 import { connectDb } from "./config/dbConnector.js";
-import dotenv from "dotenv";
 
+import dotenv from "dotenv";
 dotenv.config();
 import { users } from "./models/userModel.js";
 import userRouter from "./routes/userRouter.js";
@@ -10,6 +10,7 @@ import MongoStore from "connect-mongo";
 import passport from "passport";
 import path from "node:path";
 import "./config/passport.js";
+import multer from "multer";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import categoryRouter from "./routes/categoryRouter.js";
@@ -33,7 +34,8 @@ app.use(
 // enabling session support
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
+const upload = multer({ dest: "public/" });
 // setting session from express-session
 app.use(
   session({

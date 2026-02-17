@@ -30,6 +30,7 @@ passport.serializeUser(function (user, cb) {
       email: user.email,
       isAdmin: user.isAdmin,
       phoneNo: user.phoneNo,
+      image: user.image,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     });
