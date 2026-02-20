@@ -11,7 +11,7 @@ const UpdateInfo = () => {
   const [email, setEmail] = useState(user?.email);
   const [phoneNo, setPhoneNo] = useState(user?.phoneNo);
   const [img, setImg] = useState(user?.image || null);
-  const [updateUser, isLoading] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
   const navigateTo = useNavigate();
   const id = user._id;
   console.log(id);
@@ -54,8 +54,16 @@ const UpdateInfo = () => {
   }, [img]);
 
   return (
-    <div className="flex fixed items-center h-[100vh] md:justify-center  justify-start w-full bg-black/80  z-[1001] top-0 left-0 ">
-      <div className="w-[80%] h-[75%] ml-4 bg-white rounded-md flex flex-col ">
+    <div
+      className="flex fixed items-center h-[100vh] md:justify-center  justify-start w-full bg-black/80  z-[1001] top-0 left-0 "
+      onClick={() => {
+        navigateTo("/userInfo");
+      }}
+    >
+      <div
+        className="w-[80%] h-[75%] ml-4 bg-white rounded-md flex flex-col "
+        onClick={(e) => e.stopPropagation()}
+      >
         <form
           action=""
           className="flex flex-col "

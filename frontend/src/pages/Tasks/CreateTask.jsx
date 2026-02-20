@@ -1,12 +1,13 @@
 import React from "react";
 import { toast } from "react-toastify";
 import { useCreateTaskMutation } from "../../redux/api/taskApiSlice";
-import { Link } from "react-router-dom";
-import { useGetAllCategorysQuery } from "../../redux/api/categoryApiSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useGetAllCatQuery } from "../../redux/api/categoryApiSlice";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const CreateTask = () => {
   const [name, setName] = useState("");
   const [dueDate, setDuedate] = useState("");
@@ -16,12 +17,13 @@ const CreateTask = () => {
   const [category, setCategory] = useState("");
   const { data: allCats = [] } = useGetAllCatQuery();
   console.log("this is allcats from create tasks", allCats);
-
+  const path = useSelector((state) => state.prevPathInfo);
+  const navigateTo = useNavigate();
   // useEffect(() => {
   //   console.log(name, dueDate, category, priority, status, description);
   // }, [name, dueDate, category, priority, status, description]);
 
-  const [createTask] = useCreateTaskMutation();
+  const [createTask, { isLoading, isError, error }] = useCreateTaskMutation();
 
   const handleCreateTask = async (e) => {
     e.preventDefault();
@@ -35,11 +37,15 @@ const CreateTask = () => {
         priority,
       }).unwrap();
       toast.success(`${task.name} task is created`);
+      navigateTo(`${path.prevPath}`);
     } catch (error) {
+      console.log(error);
       toast.error(error?.message || error?.error);
     }
   };
+  if (isLoading) return <Loader />;
 
+  if (isError) return <Error error={error} />;
   return (
     <>
       {allCats?.length > 0 ? (
@@ -90,7 +96,7 @@ const CreateTask = () => {
                   onChange={(e) => setStatus(e.target.value)}
                 >
                   <option value="">Choose Status</option>
-                  <option value="Complete">Complete</option>
+                  <option value="Completed">Complete</option>
                   <option value="In Progress">In Progress</option>
                   <option value="Not Started">Not Started</option>
                 </select>
@@ -147,7 +153,7 @@ const CreateTask = () => {
           </form>
         </div>
       ) : (
-        <div className="ml-65 ">
+        <div className="ml-3 md:ml-65 ">
           {" "}
           You have to create a create category first...
           <Link

@@ -3,8 +3,11 @@ import { LiaEdit } from "react-icons/lia";
 import { useUpdateUserByAdminMutation } from "../../redux/api/userApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const UpdateByAdmin = ({ id, userEmail, userName, userPhoneNo }) => {
-  const [updateUserByAdmin] = useUpdateUserByAdminMutation();
+  const [updateUserByAdmin, { isLoading, isError, error }] =
+    useUpdateUserByAdminMutation();
   const navigateTo = useNavigate();
   const [name, setName] = useState(userName);
   const [email, setEmail] = useState(userEmail);
@@ -31,7 +34,9 @@ const UpdateByAdmin = ({ id, userEmail, userName, userPhoneNo }) => {
       );
     }
   };
+  if (isLoading) return <Loader />;
 
+  if (isError) return <Error error={error} />;
   return (
     <div>
       <LiaEdit

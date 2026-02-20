@@ -2,8 +2,11 @@ import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteCategoryMutation } from "../../redux/api/categoryApiSlice";
 import { toast } from "react-toastify";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const DeleteCategory = ({ id }) => {
-  const [deleteCategory] = useDeleteCategoryMutation();
+  const [deleteCategory, { isLoading, isError, error }] =
+    useDeleteCategoryMutation();
   const handleDelete = async () => {
     const ok = window.confirm(
       "Deleting this category will delete alll the tasks of this category as well.Are you sure?",
@@ -17,6 +20,9 @@ const DeleteCategory = ({ id }) => {
       }
     }
   };
+  if (isLoading) return <Loader />;
+
+  if (isError) return <Error error={error} />;
   return (
     <div>
       <FaTrashAlt

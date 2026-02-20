@@ -5,11 +5,18 @@ import { Outlet } from "react-router-dom";
 import TaskDetail1 from "./TaskDetail1";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { FaBackward } from "react-icons/fa";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const VitalTask = () => {
   const path = useSelector((state) => state.prevPathInfo.prevPath);
 
   const [pageNo, setPageNo] = useState(0);
-  const { data: allTasks = [] } = useGetVitalTaskQuery(pageNo);
+  const {
+    data: allTasks = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetVitalTaskQuery(pageNo);
   console.log("vitaltasks", allTasks);
   const [id, setId] = useState(null);
 
@@ -20,6 +27,9 @@ const VitalTask = () => {
       setId(null);
     }
   }, [allTasks, pageNo]);
+  if (isLoading) return <Loader />;
+
+  if (isError) return <Error error={error} />;
   return (
     <div className="flex md:ml-64  ml-2">
       <div className="border-1 border-gray-500 rounded-md flex flex-col w-[23rem] md:w-[30rem] ">

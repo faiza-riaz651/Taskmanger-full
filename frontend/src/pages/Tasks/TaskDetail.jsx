@@ -5,11 +5,18 @@ import { Outlet } from "react-router-dom";
 import TaskDetail1 from "./TaskDetail1";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { FaBackward } from "react-icons/fa";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const TaskDetail = () => {
   const path = useSelector((state) => state.prevPathInfo.prevPath);
 
   const [pageNo, setPageNo] = useState(0);
-  const { data: allTasks = [] } = useGetAllTasksQuery(pageNo);
+  const {
+    data: allTasks = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetAllTasksQuery(pageNo);
   console.log(allTasks);
   const [id, setId] = useState(null);
 
@@ -20,6 +27,13 @@ const TaskDetail = () => {
       setId(null);
     }
   }, [allTasks, pageNo]);
+
+  console.log(error);
+
+  if (isLoading) return <Loader />;
+
+  if (isError) return <Error error={error} />;
+
   return (
     <div className="flex ml-2 md:ml-64 w-[27rem]  md:w-[60rem] ">
       <div className="border-1 border-gray-500 rounded-md flex flex-col w-[23rem] md:w-[30rem] ">
@@ -67,9 +81,11 @@ const TaskDetail = () => {
         </div>
       </div>
 
-      <div className="hidden md:block">
-        <Outlet context={{ id: id }} />
-      </div>
+      {allTasks.length > 0 && id && (
+        <div className="hidden md:block">
+          <Outlet context={{ id }} />
+        </div>
+      )}
     </div>
   );
 };

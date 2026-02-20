@@ -6,10 +6,13 @@ import { toast } from "react-toastify";
 import { IoEye } from "react-icons/io5";
 import { TbPlayerTrackNext } from "react-icons/tb";
 import { Outlet } from "react-router-dom";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const CreateCategory = () => {
   const path = useSelector((state) => state.prevPathInfo);
-  const [createCategory] = useCreateCategoryMutation();
+  const [createCategory, { isLoading, isError, error }] =
+    useCreateCategoryMutation();
   const [catName, setCatName] = useState("");
   const navigateTo = useNavigate();
 
@@ -23,7 +26,9 @@ const CreateCategory = () => {
       toast.error(error.message || error?.data?.message || "Operation failed");
     }
   };
+  if (isLoading) return <Loader />;
 
+  if (isError) return <Error error={error} />;
   return (
     <div className="ml-4 md:ml-75 w-[48rem] h-[28rem] border-2 border-gray-500 rounded-lg flex flex-col ">
       <div className="flex justify-between mx-2 my-2 font-semibold">

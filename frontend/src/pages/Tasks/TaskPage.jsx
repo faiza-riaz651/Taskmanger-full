@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   useGetTaskByIdQuery,
   useDeleteTaskMutation,
 } from "../../redux/api/taskApiSlice";
+import { useNavigate } from "react-router";
 import UpdateTask from "./UpdateTask.jsx";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useOutletContext } from "react-router";
 import { MdOutlineDeleteForever } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-const TaskDetail2 = () => {
+const TaskPage = () => {
   const path = useSelector((state) => state.prevPathInfo.prevPath);
   const [deleteTask] = useDeleteTaskMutation();
-  const { id } = useOutletContext();
+  const { id } = useParams();
+  const navigateTo = useNavigate();
+
   console.log("id from ", id);
 
   const { data: task, isError, error } = useGetTaskByIdQuery(id);
@@ -29,7 +32,7 @@ const TaskDetail2 = () => {
   return (
     <>
       {task ? (
-        <div className=" ml-1 flex flex-col border-2 border-gray-500 rounded-lg w-[27rem] h-[calc(100vh-6rem)] mr-3">
+        <div className=" ml-1 md:ml-65 flex flex-col border-2 border-gray-500 rounded-lg w-[27rem] md:w-[35rem] h-[calc(100vh-6rem)] mr-3">
           <div className="flex justify-between mx-2 my-5 font-semibold">
             <h1 className="text-lg underline decoration-2 decoration-red-500 underline-offset-3 ">
               {task?.name}
@@ -78,14 +81,10 @@ const TaskDetail2 = () => {
             <MdOutlineDeleteForever
               className="bg-[#FF5C5C]  rounded-md text-white"
               size={34}
-              onClick={
-                () => {
-                  handleDelete(task?._id);
-
-                  navigateTo("/tasks");
-                }
-                // navigateTo()
-              }
+              onClick={() => {
+                handleDelete(task?._id);
+                navigateTo("/tasks");
+              }}
             />
           </div>
         </div>
@@ -94,4 +93,4 @@ const TaskDetail2 = () => {
   );
 };
 
-export default TaskDetail2;
+export default TaskPage;

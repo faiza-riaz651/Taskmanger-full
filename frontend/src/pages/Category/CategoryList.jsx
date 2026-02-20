@@ -8,14 +8,23 @@ import TasksByCat from "./TasksByCat";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { FaBackward } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const CategoryList = () => {
   const [pageNo, setPageNo] = useState(0);
-  const { data: allCategorys = [] } = useGetAllCategorysQuery(pageNo);
+  const {
+    data: allCategorys = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetAllCategorysQuery(pageNo);
   const navigateTo = useNavigate();
   console.log(allCategorys);
   const path = useSelector((state) => state.prevPathInfo);
+  if (isLoading) return <Loader />;
 
+  if (isError) return <Error error={error} />;
   return (
     <div className="ml-4 md:ml-64 flex flex-col border-2 border-gray-500 rounded-lg w-[25rem] md:w-[63rem] mr-2 ">
       <div className="flex justify-between mx-2 my-2 font-semibold">

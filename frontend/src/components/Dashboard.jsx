@@ -6,11 +6,18 @@ import DonutChart from "./DonutChart";
 import { MdOutlinePendingActions } from "react-icons/md";
 import { useGetTaskSummaryQuery } from "../redux/api/taskApiSlice";
 import TaskDetail1 from "../pages/Tasks/TaskDetail1";
+import Loader from "./Loader";
+import Error from "./Error";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.userInfo.user);
   const path = useSelector((state) => state.prevPathInfo);
-  const { data: tasks = [] } = useGetTaskSummaryQuery(undefined, {
+  const {
+    data: tasks = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetTaskSummaryQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
   const totalTasks = tasks?.length;

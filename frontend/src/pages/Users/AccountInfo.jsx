@@ -47,7 +47,7 @@ const AccountInfo = () => {
           <img
             src={`${user?.image ? `http://localhost:5000/${user.image}` : ""}`}
             alt=""
-            className="w-28 h-28 rounded-full outline outline-offset-2"
+            className="w-28 h-28 rounded-full outline outline-offset-2 object-cover"
           />
           <div className="flex flex-col ml-2 mb-5">
             <span className="font-semibold">{`${user?.name.at(0).toUpperCase()}${user?.name.slice(1)}`}</span>

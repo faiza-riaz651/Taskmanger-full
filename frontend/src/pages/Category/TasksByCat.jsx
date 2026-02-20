@@ -5,13 +5,17 @@ import TaskDetail1 from "../Tasks/TaskDetail1";
 import { useSelector } from "react-redux";
 import { TbPlayerTrackNextFilled } from "react-icons/tb";
 import { FaBackward } from "react-icons/fa";
+import Loader from "../../components/Loader";
 
 const TasksByCat = () => {
   const path = useSelector((state) => state.prevPathInfo.prevPath);
   const { category } = useParams();
 
   const [pageNo, setPageNo] = useState(0);
-  const { data: allTasks = [] } = useGetTasksByCatQuery({ pageNo, category });
+  const { data: allTasks = [], isLoading } = useGetTasksByCatQuery({
+    pageNo,
+    category,
+  });
   console.log(allTasks);
   const [id, setId] = useState(null);
 
@@ -22,6 +26,8 @@ const TasksByCat = () => {
       setId(null);
     }
   }, [allTasks, pageNo]);
+  if (isLoading) return <Loader />;
+
   return (
     <div className="flex ml-4 md:ml-64 w-[25rem] md:w-[100rem] ">
       <div className="border-1 border-gray-500 rounded-md flex flex-col w-[30rem] ">

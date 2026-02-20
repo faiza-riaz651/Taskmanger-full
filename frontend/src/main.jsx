@@ -21,6 +21,7 @@ import CreateTask from "./pages/Tasks/CreateTask.jsx";
 import VitalTask from "./pages/Tasks/VitalTask.jsx";
 import TaskSummary from "./pages/Tasks/TaskSmmary.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import TaskPage from "./pages/Tasks/TaskPage.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
       },
       { path: "task-summary", element: <TaskSummary /> },
       { index: true, element: <Dashboard /> },
+      { path: ":currPath/:id", element: <TaskPage /> },
     ],
   },
 ]);

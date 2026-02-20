@@ -2,11 +2,16 @@ import React from "react";
 import { useGetAllUsersQuery } from "../../redux/api/userApiSlice";
 import DeleteByAdmin from "./DeleteByAdmin";
 import UpdateByAdmin from "./UpdateByAdmin";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const AdminDashboard = () => {
-  const { data: allUsers } = useGetAllUsersQuery();
+  const { data: allUsers, isLoading, isError, error } = useGetAllUsersQuery();
 
   const allUsersFilter = allUsers?.filter((user) => !user.isAdmin);
+  if (isLoading) return <Loader />;
+
+  if (isError) return <Error error={error} />;
   return (
     <div className="   ml-62 mr-3">
       <table className="border  ">

@@ -3,10 +3,17 @@ import { useGetUrgentTasksQuery } from "../../redux/api/taskApiSlice";
 import TaskDetail1 from "./TaskDetail1";
 import { Link } from "react-router-dom";
 import { RiAddLargeLine } from "react-icons/ri";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 
 const UrgentTask = () => {
   const [id, setId] = useState(null);
-  const { data: tasks = [] } = useGetUrgentTasksQuery(undefined, {
+  const {
+    data: tasks = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetUrgentTasksQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
   console.log(tasks);

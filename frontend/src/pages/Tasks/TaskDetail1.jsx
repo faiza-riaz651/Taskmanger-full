@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 import { LuCircle } from "react-icons/lu";
 import { useSelector } from "react-redux";
 const TaskDetail1 = ({ task, selectedId }) => {
@@ -17,7 +18,12 @@ const TaskDetail1 = ({ task, selectedId }) => {
           />
         </div>
         <div className="flex flex-col m-4 ">
-          <span className="font-bold">{task.name}</span>
+          <Link
+            className="font-bold"
+            to={`${path.currPath === "/" ? "#" : `${path.currPath}/${task._id}`}`}
+          >
+            {task.name}
+          </Link>
 
           <div className="flex justify-between w-[18rem] mt-2">
             <span>{task?.description}</span>

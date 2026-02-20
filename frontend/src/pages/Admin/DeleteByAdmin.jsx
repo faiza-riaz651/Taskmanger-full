@@ -2,8 +2,11 @@ import React from "react";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDeleteUserByAdminMutation } from "../../redux/api/userApiSlice";
 import { toast } from "react-toastify";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const DeleteByAdmin = ({ id }) => {
-  const [deleteUserByAdmin] = useDeleteUserByAdminMutation();
+  const [deleteUserByAdmin, { isLoading, isError, error }] =
+    useDeleteUserByAdminMutation();
 
   const handleClick = async () => {
     try {
@@ -19,6 +22,9 @@ const DeleteByAdmin = ({ id }) => {
       );
     }
   };
+  if (isLoading) return <Loader />;
+
+  if (isError) return <Error error={error} />;
   return (
     <div>
       <FaTrashAlt

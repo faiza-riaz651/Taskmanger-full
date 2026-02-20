@@ -3,9 +3,16 @@ import { useGetTaskSummaryQuery } from "../../redux/api/taskApiSlice";
 import TaskSummaryChart from "./TaskSummaryChart";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loader from "../../components/Loader";
+import Error from "../../components/Error";
 const TaskSmmary = () => {
   const path = useSelector((state) => state.prevPathInfo);
-  const { data: tasks = [] } = useGetTaskSummaryQuery();
+  const {
+    data: tasks = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetTaskSummaryQuery();
   const completedTasks = tasks?.filter((task) => task.status === "Completed");
   const inProgressTasks = tasks?.filter(
     (task) => task.status === "In Progress",
@@ -16,6 +23,10 @@ const TaskSmmary = () => {
   const highTasks = tasks?.filter((task) => task.priority === "Extreme");
   const lowTasks = tasks?.filter((task) => task.priority === "Low");
   const moderateTasks = tasks?.filter((task) => task.priority === "Moderate");
+
+  if (isLoading) return <Loader />;
+
+  if (isError) return <Error error={error} />;
 
   return (
     <div className="ml-4 md:ml-65 w-[64rem] mr-3 border-2 border-gray-400 rounded-lg flex flex-col  ">
