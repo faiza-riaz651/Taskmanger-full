@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://taskmanagerfe.onrender.com",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   }),
@@ -37,6 +37,8 @@ const __dirname = path.dirname(__filename);
 app.use(express.static("public"));
 const upload = multer({ dest: "public/" });
 // setting session from express-session
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: process.env.SECRET,
@@ -49,12 +51,11 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: false, // MUST be false on localhost
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
     },
   }),
 );
-
 // setting the passport session strategy
 app.use(passport.authenticate("session"));
 
