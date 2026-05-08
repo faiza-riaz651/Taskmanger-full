@@ -13,8 +13,7 @@ const UpdateInfo = () => {
   const [img, setImg] = useState(user?.image || null);
   const [updateUser] = useUpdateUserMutation();
   const navigateTo = useNavigate();
-  const id = user._id;
-  console.log(id);
+
   const dispatch = useDispatch();
 
   const handleClick = async (e) => {
@@ -25,18 +24,10 @@ const UpdateInfo = () => {
       formData.append("name", name);
       formData.append("email", email);
       formData.append("phoneNo", phoneNo);
-      formData.append("img", img);
-      console.log(formData);
-      console.log(`id is :${id}`);
-      const user = await updateUser({
-        id,
-        updateData: formData,
-      }).unwrap();
-      dispatch(saveUserInfo(user));
-      if (!user) {
-        console.log(user);
-      }
+      formData.append("image", img);
+      const user = await updateUser(formData).unwrap();
       console.log(user);
+      dispatch(saveUserInfo(user));
       toast.success("Your Profile has been updated!");
       navigateTo("/userInfo");
     } catch (error) {
@@ -69,7 +60,7 @@ const UpdateInfo = () => {
           action=""
           className="flex flex-col "
           onSubmit={(e) => handleClick(e)}
-          encrypt="multipart/form-data"
+          encType="multipart/form-data"
         >
           <h1 className="font-bold text-lg ml-7">Update Account Info!</h1>
           <div className="flex flex-wrap ">
@@ -124,7 +115,7 @@ const UpdateInfo = () => {
                 accept=".png,.jpg,.jpeg"
                 className="border-2 border-gray-500 text-gray-400 h-12 ml-2 md:ml-2 w-38 md:h-24 md:w-56 pl-2 rounded-md mt-1 md:mt-3"
                 onChange={(e) => {
-                  setImg(e.target.file);
+                  setImg(e.target.files[0]);
                 }}
               />
             </div>

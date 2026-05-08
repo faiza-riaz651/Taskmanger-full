@@ -30,7 +30,7 @@ const createUser = async (req, res, next) => {
       return res.status(201).json({ data: user });
     });
   } catch (error) {
-    return res.status(500).send(error.message);
+    next(error);
   }
 };
 
@@ -100,15 +100,23 @@ const updateUser = async (req, res, next) => {
   try {
     const { name, email, phoneNo } = req.body;
     const file = req.file;
-    const { id } = req?.params;
-    console.log(id);
-    const user = await users.findById({ _id: req.user._id });
 
-    console.log(user);
+    const user = await users
+      .findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          name,
+          email,
+          phoneNo,
+          image: file?.filename,
+        },
+        {
+          returnDocument: "after",
+        },
+      )
+      .select("-password");
 
-    if (!user) {
-      return res.status(404);
-    }
+    return res.status(200).send(user);
   } catch (error) {
     console.log(error);
     return res.status(500).json({

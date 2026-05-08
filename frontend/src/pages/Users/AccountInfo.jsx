@@ -14,7 +14,7 @@ const AccountInfo = () => {
 
   const handleDelete = async () => {
     try {
-      const deleted = await deleteUser(user.id).unwrap();
+      const deleted = await deleteUser().unwrap();
       dispatch(removeUserInfo());
       navigateTo("/");
       toast.success("Your Profile has been deleted permanently");
