@@ -63,9 +63,10 @@ userRouter.route("/admin/allusers").get(isAuthenticated, isAdmin, getAllUsers);
 //   .delete(isAuthenticated, deleteUser);
 
 userRouter
-  .route("/user/:id")
-  .put(isAuthenticated, upload.single("img"), updateUser)
-  .delete(isAuthenticated, deleteUser);
+  .route("/user")
+  .put(isAuthenticated, upload.single("image"), updateUser)
+  .delete(isAuthenticated, deleteUser)
+  .get(isAuthenticated, getUser);
 userRouter
   .route("/user/admin/:id")
   .get(isAuthenticated, isAdmin, getUser)

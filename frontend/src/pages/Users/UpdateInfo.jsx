@@ -36,10 +36,11 @@ const UpdateInfo = () => {
       if (!user) {
         console.log(user);
       }
+      console.log(user);
       toast.success("Your Profile has been updated!");
       navigateTo("/userInfo");
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
       toast.error(
         error?.data?.error ||
           error?.message ||
@@ -61,7 +62,7 @@ const UpdateInfo = () => {
       }}
     >
       <div
-        className="w-[80%] h-[75%] ml-4 bg-white rounded-md flex flex-col "
+        className="w-[80%]  ml-4 bg-white rounded-md flex flex-col "
         onClick={(e) => e.stopPropagation()}
       >
         <form
@@ -105,7 +106,7 @@ const UpdateInfo = () => {
                 )}
               </div>
             </div>
-            <div className="font-bold my-1 md:ml-24 ml-8  ">
+            <div className="font-bold my-1 md:ml-14 ml-0  ">
               {user?.image && (
                 <img
                   src={`${user?.image ? `http://localhost:5000/${user.image}` : ""}`}
@@ -114,16 +115,16 @@ const UpdateInfo = () => {
                 />
               )}
 
-              <label className="md:block md:font-bold hidden">
+              <label className="md:block ml-2  md:font-bold hidden">
                 Upload an image:
               </label>
 
               <input
                 type="file"
                 accept=".png,.jpg,.jpeg"
-                className="border-2 border-gray-500 text-gray-400 h-12 ml-6 md:ml-2 w-38 md:h-24 md:w-56 pl-2 rounded-md mt-1 md:mt-3"
+                className="border-2 border-gray-500 text-gray-400 h-12 ml-2 md:ml-2 w-38 md:h-24 md:w-56 pl-2 rounded-md mt-1 md:mt-3"
                 onChange={(e) => {
-                  setImg(e.target.files[0]);
+                  setImg(e.target.file);
                 }}
               />
             </div>
@@ -131,7 +132,7 @@ const UpdateInfo = () => {
 
           <div>
             <button
-              className="bg-[#FF5C5C] text-white ml-14 p-3 border-none rounded-md mt-3"
+              className="bg-[#FF5C5C] text-white ml-14 p-3 border-none rounded-md mt-3  mb-2"
               type="submit"
             >
               Update Profile

@@ -73,6 +73,10 @@ app.use("/api/users", userRouter);
 app.use("/api/categorys", categoryRouter);
 app.use("/api/tasks", taskRouter);
 
+app.use((err, req, res, next) => {
+  console.log(err.status, err.message);
+  return res.send(err);
+});
 // listening to port
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

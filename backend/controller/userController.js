@@ -44,17 +44,23 @@ const logoutUser = (req, res, next) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const allUsers = await users.find({});
+    const allUsers = await users.find({}).select("-password");
     if (!allUsers) {
-      res.status(200).json({ message: "No Users In DB" });
+      res.status(404).json({ message: "No Users In DB" });
     }
     return res.status(200).send(allUsers);
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
-const getUser = (req, res, next) => {
-  console.log(req.user);
-  return res.status(200).json(req.user);
+const getUser = async (req, res, next) => {
+  try {
+    const user = await users.findOne({ _id: req.user._id }).select("-password");
+    return res.status(200).send(user);
+  } catch (error) {
+    next(error);
+  }
 };
 
 const updateUserByAdmin = async (req, res, next) => {
@@ -93,33 +99,21 @@ const deleteUserByAdmin = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { name, email, phoneNo } = req.body;
-    const image = req.file.filename;
-    console.log(req.body);
-    console.log("imgae is", image);
+    const file = req.file;
+    const { id } = req?.params;
+    console.log(id);
+    const user = await users.findById({ _id: req.user._id });
 
-    const id = req?.params?.id;
-    console.log(`pritning id of req ${id}`);
-    const user = await users.findByIdAndUpdate(
-      { _id: id },
-      {
-        name: name,
-        email: email,
-        phoneNo: phoneNo,
-        image: image,
-      },
-      { new: true },
-    );
+    console.log(user);
+
     if (!user) {
-      res.status(404).json({ error: "User Not Found!" });
+      return res.status(404);
     }
-    req.user.name = req.body?.name || req.user.name;
-    req.user.phoneNo = req.body?.phoneNo || req.user.phoneNo;
-    req.user.email = req.body?.email || req.user.email;
-    req.user.image = req.file?.filename || req.file.filename;
-    console.log(req.user);
-    return res.status(200).send(req.user);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    console.log(error);
+    return res.status(500).json({
+      message: error?.message || "Error occured while updating the profile",
+    });
   }
 };
 
@@ -134,20 +128,15 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const id = req?.params?.id;
-    const userToDelete = await users.findOneAndDelete({ _id: id });
-    if (!userToDelete) {
-      return res.status(404).json({ error: "User Not Found!" });
-    }
-    // await userToDelete.deleteOne();
-    req.user = null;
-    // console.log(req.user);
+    const userToDelete = await users.findOneAndDelete({ _id: req.user._id });
+
     req.logout((err) => {
       if (err) return next(err);
     });
 
     return res.status(200).json({ message: `User  is deleted` });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
