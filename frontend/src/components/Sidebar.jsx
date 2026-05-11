@@ -88,7 +88,7 @@ const Sidebar = () => {
               />
             </div>
             <div className="flex flex-col mt-0">
-              <span className="text-white font-semibold text-center">{`${user.name.at(0).toUpperCase()}${user.name.slice(1)}`}</span>
+              <span className="text-white font-semibold text-center">{`${user?.name?.at(0)?.toUpperCase()}${user?.name?.slice(1)}`}</span>
               <span className="text-white text-sm ">{user.email}</span>
             </div>
           </div>

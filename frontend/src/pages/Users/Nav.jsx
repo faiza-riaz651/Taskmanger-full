@@ -36,7 +36,7 @@ const Nav = () => {
           </div>
         </div>
 
-        <div className=" hidden md:flex w-[28rem] items-center bg-white border-none rounded-md">
+        {/* <div className=" hidden md:flex w-[28rem] items-center bg-white border-none rounded-md">
           <input
             type="text"
             placeholder="Search Your Task Here..."
@@ -48,18 +48,18 @@ const Nav = () => {
               size={38}
             />
           </div>
-        </div>
-        <div className="border-none  rounded-md p-1  flex items-center md:mr-15 ">
+        </div> */}
+        <div className="border-none rounded-md p-1  flex items-center justify-end md:ml-[40%]   ">
           {user ? (
             <>
-              <div className="flex ml-6 p-1 border-none rounded-md bg-[#FF5C5C]">
+              {/* <div className="flex ml-6 p-1 border-none rounded-md bg-[#FF5C5C]">
                 <SlCalender
                   className="text-white"
                   size={27}
                   onClick={() => setCalender(!calender)}
                 />
               </div>
-              {calender && <Calender calender={calender} />}
+              {calender && <Calender calender={calender} />} */}
             </>
           ) : (
             <>
